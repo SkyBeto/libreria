@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alberto y la Pró de Xime - Librería</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --color-primary: #5d4037;
+            --color-secondary: #ffb74d;
+            --color-light: #f9f5f0;
+            --color-dark: #333;
+            --color-gray: #777;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--color-light);
+            color: var(--color-dark);
+            line-height: 1.6;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header y navegación */
+        header {
+            background-color: var(--color-primary);
+            color: #fff;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--color-secondary);
+            margin-left: 5px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 16px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--color-secondary);
+        }
+        
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--color-secondary);
+            color: var(--color-dark);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            color: #fff;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--color-secondary);
+            color: var(--color-dark);
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #ffa726;
+            transform: translateY(-3px);
+        }
+        
+        /* Secciones */
+        section {
+            padding: 50px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--color-primary);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--color-secondary);
+            margin: 10px auto;
+        }
+        
+        /* Libros destacados */
+        .books {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .book-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .book-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .book-img {
+            height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .book-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .book-info h3 {
+            margin-bottom: 10px;
+            color: var(--color-primary);
+            font-size: 18px;
+        }
+        
+        .book-info .author {
+            color: var(--color-gray);
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        
+        .book-info .description {
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 14px;
+            flex-grow: 1;
+        }
+        
+        .book-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+        
+        .price {
+            font-weight: bold;
+            color: var(--color-primary);
+            font-size: 1.2rem;
+        }
+        
+        .rental-price {
+            color: #388e3c;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        .action-btn {
+            background-color: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .action-btn:hover {
+            background-color: #4e342e;
+        }
+        
+        /* Eventos */
+        .events {
+            background-color: #f1f1f1;
+        }
+        
+        .event-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .event {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .event h3 {
+            color: var(--color-primary);
+            margin-bottom: 10px;
+        }
+        
+        .event-date {
+            color: var(--color-secondary);
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        /* Contacto */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .contact-details p {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .contact-form input, 
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--color-primary);
+            color: #fff;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 15px;
+            color: var(--color-secondary);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .social-icons {
+            margin-top: 15px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icons a {
+            color: #fff;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: var(--color-secondary);
+        }
+        
+        /* Carrito de compras */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background-color: white;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .cart-modal.open {
+            right: 0;
+        }
+        
+        .cart-header {
+            padding: 20px;
+            background-color: var(--color-primary);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .cart-items {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .cart-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-img {
+            width: 70px;
+            height: 90px;
+            background-size: cover;
+            background-position: center;
+            margin-right: 15px;
+        }
+        
+        .cart-item-details {
+            flex-grow: 1;
+        }
+        
+        .cart-item-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            color: var(--color-primary);
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+        
+        .quantity-btn {
+            width: 25px;
+            height: 25px;
+            background-color: #f1f1f1;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .quantity-input {
+            width: 35px;
+            height: 25px;
+            text-align: center;
+            margin: 0 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        
+        .remove-item {
+            color: #f44336;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        
+        .cart-footer {
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--color-secondary);
+            color: var(--color-dark);
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .checkout-btn:hover {
+            background-color: #ffa726;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 30px;
+            color: var(--color-gray);
+        }
+        
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: none;
+            z-index: 999;
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+        
+        /* Checkout */
+        .checkout-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 600px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            z-index: 1001;
+            display: none;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+        }
+        
+        .checkout-modal.open {
+            display: block;
+        }
+        
+        .checkout-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .checkout-form {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .close-checkout {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--color-primary);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transition: left 0.3s;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .book-img {
+                height: 220px;
+            }
+            
+            .cart-modal {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Alberto <span>y la Pró de Xime</span></div>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#libros">Libros</a></li>
+                    <li><a href="#eventos">Eventos</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                    <li class="cart-icon" id="cartIcon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Carrito de compras -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h3>Tu Carrito</h3>
+            <button class="close-cart" id="closeCart">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart" id="emptyCart">
+                <i class="fas fa-shopping-cart" style="font-size: 48px; margin-bottom: 15px;"></i>
+                <p>Tu carrito está vacío</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">$0.00 MXN</span>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <!-- Modal de Checkout -->
+    <div class="checkout-modal" id="checkoutModal">
+        <button class="close-checkout" id="closeCheckout">&times;</button>
+        <div class="checkout-header">
+            <h2>Finalizar Compra</h2>
+            <p>Complete sus datos para procesar el pedido</p>
+        </div>
+        <form class="checkout-form" id="checkoutForm">
+            <div class="form-group">
+                <label for="name">Nombre completo</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Teléfono</label>
+                <input type="tel" id="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Dirección de envío</label>
+                <input type="text" id="address" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="city">Ciudad</label>
+                    <input type="text" id="city" required>
+                </div>
+                <div class="form-group">
+                    <label for="zip">Código postal</label>
+                    <input type="text" id="zip" required>
+                </div>
+            </div>
+            <button type="submit" class="btn">Confirmar Pedido</button>
+        </form>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="container">
+            <h1>Descubre el placer de la lectura</h1>
+            <p>Encuentra tu próximo libro favorito en nuestra amplia colección de géneros y autores. Disponible para venta y renta.</p>
+            <a href="#libros" class="btn">Explorar Libros</a>
+        </div>
+    </section>
+
+    <!-- Libros Destacados -->
+    <section id="libros">
+        <div class="container">
+            <h2 class="section-title">Libros Destacados</h2>
+            <div class="books">
+                <div class="book-card">
+                    <div class="book-img" style="background-image: url('https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');">
+                        <span>Cien años de soledad</span>
+                    </div>
+                    <div class="book-info">
+                        <h3>Cien años de soledad</h3>
+                        <p class="author">Gabriel García Márquez</p>
+                        <p class="description">La saga de la familia Buendía en el pueblo mágico de Macondo, una obra maestra del realismo mágico que explora el amor, la soledad y el destino.</p>
+                        <div class="book-actions">
+                            <div>
+                                <p class="price">$389.00 MXN</p>
+                                <p class="rental-price">Renta: $50/semana</p>
+                            </div>
+                            <button class="action-btn" data-id="1" data-title="Cien años de soledad" data-price="389" data-image="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-img" style="background-image: url('https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');">
+                        <span>1984</span>
+                    </div>
+                    <div class="book-info">
+                        <h3>1984</h3>
+                        <p class="author">George Orwell</p>
+                        <p class="description">Una distopía clásica sobre un futuro totalitario donde el gobierno controla cada aspecto de la vida humana y la libertad individual no existe.</p>
+                        <div class="book-actions">
+                            <div>
+                                <p class="price">$275.00 MXN</p>
+                                <p class="rental-price">Renta: $40/semana</p>
+                            </div>
+                            <button class="action-btn" data-id="2" data-title="1984" data-price="275" data-image="https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-img" style="background-image: url('https://images.unsplash.com/photo-1629992101753-56d196c8aabb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');">
+                        <span>El Principito</span>
+                    </div>
+                    <div class="book-info">
+                        <h3>El Principito</h3>
+                        <p class="author">Antoine de Saint-Exupéry</p>
+                        <p class="description">Un piloto varado en el desierto conoce a un pequeño príncipe de otro planeta, en una fábula poética sobre la amistad y la naturaleza humana.</p>
+                        <div class="book-actions">
+                            <div>
+                                <p class="price">$225.00 MXN</p>
+                                <p class="rental-price">Renta: $35/semana</p>
+                            </div>
+                            <button class="action-btn" data-id="3" data-title="El Principito" data-price="225" data-image="https://images.unsplash.com/photo-1629992101753-56d196c8aabb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-img" style="background-image: url('https://images.unsplash.com/photo-1603162109209-4d12f1ebced1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');">
+                        <span>Harry Potter</span>
+                    </div>
+                    <div class="book-info">
+                        <h3>Harry Potter y la piedra filosofal</h3>
+                        <p class="author">J.K. Rowling</p>
+                        <p class="description">El primer libro de la famosa serie sobre el joven mago Harry Potter y sus aventuras en la escuela de magia Hogwarts.</p>
+                        <div class="book-actions">
+                            <div>
+                                <p class="price">$420.00 MXN</p>
+                                <p class="rental-price">Renta: $60/semana</p>
+                            </div>
+                            <button class="action-btn" data-id="4" data-title="Harry Potter y la piedra filosofal" data-price="420" data-image="https://images.unsplash.com/photo-1603162109209-4d12f1ebced1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <div class="book-img" style="background-image: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');">
+                        <span>Orgullo y prejuicio</span>
+                    </div>
+                    <div class="book-info">
+                        <h3>Orgullo y prejuicio</h3>
+                        <p class="author">Jane Austen</p>
+                        <p class="description">La historia de Elizabeth Bennet y el señor Darcy, en una comedia de costumbres que explora el amor, la clase social y las convenciones.</p>
+                        <div class="book-actions">
+                            <div>
+                                <p class="price">$310.00 MXN</p>
+                                <p class="rental-price">Renta: $45/semana</p>
+                            </div>
+                            <button class="action-btn" data-id="5" data-title="Orgullo y prejuicio" data-price="310" data-image="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <div class="book-img" style="background-image: url('https://images.unsplash.com/photo-1589652717406-1c69efaf1f24?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');">
+                        <span>Crónica de una muerte anunciada</span>
+                    </div>
+                    <div class="book-info">
+                        <h3>Crónica de una muerte anunciada</h3>
+                        <p class="author">Gabriel García Márquez</p>
+                        <p class="description">La reconstrucción de un asesinato en un pequeño pueblo caribeño, donde todos sabían que iba a ocurrir pero nadie lo impidió.</p>
+                        <div class="book-actions">
+                            <div>
+                                <p class="price">$265.00 MXN</p>
+                                <p class="rental-price">Renta: $40/semana</p>
+                            </div>
+                            <button class="action-btn" data-id="6" data-title="Crónica de una muerte anunciada" data-price="265" data-image="https://images.unsplash.com/photo-1589652717406-1c69efaf1f24?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Eventos -->
+    <section id="eventos" class="events">
+        <div class="container">
+            <h2 class="section-title">Próximos Eventos 2025</h2>
+            <div class="event-list">
+                <div class="event">
+                    <h3>Club de Lectura: Realismo Mágico</h3>
+                    <span class="event-date">15 de Febrero, 2025 - 18:00h</span>
+                    <p>Un espacio para discutir sobre las obras más representativas del realismo mágico latinoamericano.</p>
+                </div>
+                
+                <div class="event">
+                    <h3>Firma de Libros: Autor Local</h3>
+                    <span class="event-date">22 de Marzo, 2025 - 16:00h</span>
+                    <p>Conoce al autor local Miguel Ángel Torres y lleva tu ejemplar firmado de su nueva novela.</p>
+                </div>
+                
+                <div class="event">
+                    <h3>Taller de Escritura Creativa</h3>
+                    <span class="event-date">12 de Abril, 2025 - 11:00h</span>
+                    <p>Aprende técnicas de escritura creativa con nuestro taller gratuito para principiantes.</p>
+                </div>
+
+                <div class="event">
+                    <h3>Noche de Poesía</h3>
+                    <span class="event-date">3 de Mayo, 2025 - 19:00h</span>
+                    <p>Una velada dedicada a la poesía con lecturas en voz alta y micrófono abierto para participantes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto">
+        <div class="container">
+            <h2 class="section-title">Contacto</h2>
+            <div class="contact-info">
+                <div class="contact-details">
+                    <h3>Visítanos</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Calle Margarita Maza de Juárez, Acapulco, Guerrero</p>
+                    <p><i class="fas fa-phone"></i> 744 672 0302</p>
+                    <p><i class="fas fa-envelope"></i> albertopineda391@gmail.com</p>
+                    <p><i class="fas fa-clock"></i> Lunes a Viernes: 9:00 - 20:00</p>
+                    <p><i class="fas fa-clock"></i> Sábados: 10:00 - 21:00</p>
+                    <p><i class="fas fa-clock"></i> Domingos: 11:00 - 14:00</p>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Envíanos un mensaje</h3>
+                    <form>
+                        <input type="text" placeholder="Nombre" required>
+                        <input type="email" placeholder="Email" required>
+                        <input type="tel" placeholder="Teléfono">
+                        <textarea placeholder="Tu mensaje" required></textarea>
+                        <button type="submit" class="btn">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Alberto y la Pró de Xime</h3>
+                    <p>Tu librería de confianza en Acapulco. Encuentra el libro que buscas y descubre nuevos mundos entre páginas.</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/alberto.larumbe.1/" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/skybetoo/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/527446720302" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Enlaces Rápidos</h3>
+                    <p><a href="#inicio">Inicio</a></p>
+                    <p><a href="#libros">Libros</a></p>
+                    <p><a href="#eventos">Eventos</a></p>
+                    <p><a href="#contacto">Contacto</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Suscríbete a nuestro boletín</h3>
+                    <p>Recibe información sobre nuevos libros, eventos y promociones especiales.</p>
+                    <form>
+                        <input type="email" placeholder="Tu correo electrónico" required>
+                        <button type="submit" class="btn">Suscribirse</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Alberto y la Pró de Xime. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Variables globales
+        let cart = [];
+        
+        // Elementos del DOM
+        const cartIcon = document.getElementById('cartIcon');
+        const cartModal = document.getElementById('cartModal');
+        const closeCart = document.getElementById('closeCart');
+        const overlay = document.getElementById('overlay');
+        const cartItems = document.getElementById('cartItems');
+        const emptyCart = document.getElementById('emptyCart');
+        const cartCount = document.getElementById('cartCount');
+        const cartTotal = document.getElementById('cartTotal');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const checkoutModal = document.getElementById('checkoutModal');
+        const closeCheckout = document.getElementById('closeCheckout');
+        const checkoutForm = document.getElementById('checkoutForm');
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Cargar carrito desde localStorage si existe
+            const savedCart = localStorage.getItem('libreriaCart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCart();
+            }
+            
+            // Botones de compra
+            document.querySelectorAll('.action-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const id = e.target.getAttribute('data-id');
+                    const title = e.target.getAttribute('data-title');
+                    const price = parseFloat(e.target.getAttribute('data-price'));
+                    const image = e.target.getAttribute('data-image');
+                    
+                    addToCart(id, title, price, image);
+                });
+            });
+            
+            // Abrir carrito
+            cartIcon.addEventListener('click', openCart);
+            
+            // Cerrar carrito
+            closeCart.addEventListener('click', closeCartModal);
+            
+            // Abrir checkout
+            checkoutBtn.addEventListener('click', openCheckout);
+            
+            // Cerrar checkout
+            closeCheckout.addEventListener('click', closeCheckoutModal);
+            
+            // Enviar formulario de checkout
+            checkoutForm.addEventListener('submit', processCheckout);
+            
+            // Cerrar menú al hacer clic en overlay
+            overlay.addEventListener('click', () => {
+                closeCartModal();
+                closeCheckoutModal();
+            });
+            
+            // Menú móvil
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+            
+            // Cerrar menú al hacer clic en un enlace
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                });
+            });
+        });
+        
+        // Funciones del carrito
+        function addToCart(id, title, price, image) {
+            // Verificar si el producto ya está en el carrito
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id,
+                    title,
+                    price,
+                    image,
+                    quantity: 1
+                });
+            }
+            
+            // Actualizar interfaz
+            updateCart();
+            
+            // Mostrar mensaje de confirmación
+            showNotification(`${title} agregado al carrito`);
+        }
+        
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCart();
+        }
+        
+        function updateQuantity(id, change) {
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                item.quantity += change;
+                
+                // Eliminar si la cantidad es 0
+                if (item.quantity <= 0) {
+                    removeFromCart(id);
+                } else {
+                    updateCart();
+                }
+            }
+        }
+        
+        function updateCart() {
+            // Guardar en localStorage
+            localStorage.setItem('libreriaCart', JSON.stringify(cart));
+            
+            // Actualizar contador
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Mostrar/ocultar carrito vacío
+            if (cart.length === 0) {
+                emptyCart.style.display = 'block';
+                checkoutBtn.disabled = true;
+            } else {
+                emptyCart.style.display = 'none';
+                checkoutBtn.disabled = false;
+            }
+            
+            // Limpiar items del carrito
+            cartItems.innerHTML = '';
+            
+            // Agregar items al carrito
+            cart.forEach(item => {
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                cartItemElement.innerHTML = `
+                    <div class="cart-item-img" style="background-image: url('${item.image}')"></div>
+                    <div class="cart-item-details">
+                        <div class="cart-item-title">${item.title}</div>
+                        <div class="cart-item-price">$${item.price.toFixed(2)} MXN</div>
+                        <div class="cart-item-quantity">
+                            <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)">-</button>
+                            <input type="number" class="quantity-input" value="${item.quantity}" min="1" readonly>
+                            <button class="quantity-btn" onclick="updateQuantity('${item.id}', 1)">+</button>
+                            <button class="remove-item" onclick="removeFromCart('${item.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                cartItems.appendChild(cartItemElement);
+            });
+            
+            // Actualizar total
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = `$${total.toFixed(2)} MXN`;
+        }
+        
+        function openCart() {
+            cartModal.classList.add('open');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeCartModal() {
+            cartModal.classList.remove('open');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        function openCheckout() {
+            closeCartModal();
+            checkoutModal.classList.add('open');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeCheckoutModal() {
+            checkoutModal.classList.remove('open');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        function processCheckout(e) {
+            e.preventDefault();
+            
+            // Aquí normalmente se procesaría el pago con una pasarela de pago
+            // Por ahora solo mostraremos un mensaje de confirmación
+            
+            alert('¡Gracias por tu compra! Tu pedido ha sido procesado con éxito. Te enviaremos un correo con los detalles de envío.');
+            
+            // Limpiar carrito
+            cart = [];
+            updateCart();
+            closeCheckoutModal();
+            
+            // Resetear formulario
+            checkoutForm.reset();
+        }
+        
+        function showNotification(message) {
+            // Crear elemento de notificación
+            const notification = document.createElement('div');
+            notification.style.position = 'fixed';
+            notification.style.bottom = '20px';
+            notification.style.right = '20px';
+            notification.style.backgroundColor = 'var(--color-primary)';
+            notification.style.color = 'white';
+            notification.style.padding = '10px 20px';
+            notification.style.borderRadius = '5px';
+            notification.style.boxShadow = '0 3px 10px rgba(0,0,0,0.2)';
+            notification.style.zIndex = '1000';
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Eliminar después de 3 segundos
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transition = 'opacity 0.5s';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 500);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
